@@ -41,6 +41,11 @@ setup_base() {
 		pkg install -y science-repo;
 		pkg install -y tur-repo;
 	}
+	echo -e ${CYAN}"\n[*] Update repo... \n"
+	{ 
+		pkg update; 
+		pkg upgrade -y; 
+	}
 	echo -e ${CYAN}"\n[*] Installing required programs... \n"
 	for package in "${_pkgs[@]}"; do
 		{ reset_color; pkg install -y "$package"; }
