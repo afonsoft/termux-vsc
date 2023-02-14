@@ -26,7 +26,7 @@ trap exit_on_signal_SIGINT SIGINT
 trap exit_on_signal_SIGTERM SIGTERM
 
 ## Update, X11-repo, Program Installation
-_pkgs=(curl fsmon git openssl-tool startup-notification termux-api vim make wget zsh librsvg nodejs yarn build-essential bash-completion build-essential binutils pkg-config python3 nodejs-lts)
+_pkgs=(curl fsmon git openssl-tool startup-notification termux-api vim make wget zsh librsvg nodejs yarn build-essential bash-completion build-essential binutils pkg-config python nodejs-lts)
 
 setup_base() {
 	echo -e ${RED}"\n[*] Installing Visual Studio Code..."
