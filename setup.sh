@@ -57,7 +57,7 @@ setup_base() {
 		else
 			{ pkg autoclean; pkg update; pkg upgrade -y; }
 			echo -e ${RED}"\n[!] Error installing $package, Terminating...\n"
-			echo -e ${MAGENTA}"\n[!] Run pkg upgrade -y and ./setup.sh --install agian \n"
+			echo -e ${MAGENTA}"\n[!] Run pkg upgrade -y and ./setup.sh agian \n"
 			{ reset_color; exit 1; }
 		fi
 	done
@@ -193,16 +193,46 @@ install_vsc_repo() {
 configure_vsc(){
 	echo -e ${GREEN}"\n[*] Configure Visual Studio Code..."	
 	{ pkg install code-server; }
+	echo -e ${GREEN}"\n[*] Configure port and password..."	
+		{ 
+			wget https://raw.githubusercontent.com/afonsoft/termux-vsc/main/config.yaml -q;
+			cp -rf config.yaml  ~/.config/code-server/config.yaml;
+		}
+}
+
+setup_launcher() {
+	file="$HOME/.local/bin/startcodeserver"
+	if [[ -f "$file" ]]; then
+		rm -rf "$file"
+	fi
+	echo -e ${GREEN}"\n[*] Creating Launcher Script... \n"
+	{ reset_color; touch $file; chmod +x $file; }
+	cat > $file <<- _EOF_
+		#!/data/data/com.termux/files/usr/bin/bash
+		code-server
+	_EOF_
+	if [[ -f "$file" ]]; then
+		echo -e ${GREEN}"[*] Script ${ORANGE}$file ${GREEN}created successfully."
+	fi
+}
+setup_finaly() {
+	echo -e ${ORANGE}"\n[*] Installation successfully completed....."
+	echo -e ${RED}"\n[*] Default Port is: 8091"	
+	echo -e ${RED}"\n[*] Default password is: 123qwe"	
+	echo -e ${GREEN}"[*] Run code-server for start."
 }
 
 install_vsc() {
 	clear
 	setup_base
+	clear
 	install_zsh
 	setup_omz
-	install_adb
 	install_vsc_repo
+	install_adb
 	configure_vsc
+	setup_launcher
+	setup_finaly
 }
 
 ## Main
