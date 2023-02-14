@@ -39,6 +39,7 @@ setup_base() {
 		pkg install -y unstable-repo; 
 		pkg install -y game-repo;
 		pkg install -y science-repo;
+		pkg install -y tur-repo;
 	}
 	echo -e ${CYAN}"\n[*] Installing required programs... \n"
 	for package in "${_pkgs[@]}"; do
@@ -185,10 +186,8 @@ install_vsc_repo() {
 }
 
 configure_vsc(){
-	echo -e ${GREEN}"\n[*] Configure Visual Studio Code..."
-	{ npm config set python python3; }
-	echo -e ${GREEN}"\n[*] npm install code-server..."
-	{ npm install --global code-server --unsafe-perm; }
+	echo -e ${GREEN}"\n[*] Configure Visual Studio Code..."	
+	{ pkg install code-server; }
 }
 
 install_vsc() {
