@@ -196,6 +196,7 @@ configure_vsc(){
 }
 
 install_vsc() {
+	clear
 	setup_base
 	install_zsh
 	setup_omz
