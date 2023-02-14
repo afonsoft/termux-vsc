@@ -201,4 +201,4 @@ install_vsc() {
 }
 
 ## Main
-install_td
+install_vsc
