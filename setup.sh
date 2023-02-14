@@ -186,6 +186,7 @@ install_vsc_repo() {
 	  gpg --dearmor microsoft.asc > packages.microsoft.gpg;
 	  cp -rf packages.microsoft.gpg $PREFIX/etc/apt/trusted.gpg.d/
 	  rm -rf microsoft.asc;
+	  rm -rf packages.microsoft.gpg;
 	  echo "deb https://packages.microsoft.com/repos/code stable main" > $PREFIX/etc/apt/sources.list.d/vscode.list;
 	}
 }
@@ -200,26 +201,19 @@ configure_vsc(){
 		}
 }
 
-setup_launcher() {
-	file="$HOME/.local/bin/startcodeserver"
-	if [[ -f "$file" ]]; then
-		rm -rf "$file"
-	fi
-	echo -e ${GREEN}"\n[*] Creating Launcher Script... \n"
-	{ reset_color; touch $file; chmod +x $file; }
-	cat > $file <<- _EOF_
-		#!/data/data/com.termux/files/usr/bin/bash
-		code-server
-	_EOF_
-	if [[ -f "$file" ]]; then
-		echo -e ${GREEN}"[*] Script ${ORANGE}$file ${GREEN}created successfully."
-	fi
+setup_net() {
+	{ 
+			wget https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.sh -q;
+			chmod +x dotnet-install.sh;
+		}
+	
+
 }
 setup_finaly() {
 	echo -e ${ORANGE}"\n[*] Installation successfully completed....."
-	echo -e ${RED}"\n[*] Default Port is: 8091"	
-	echo -e ${RED}"\n[*] Default password is: 123qwe"	
-	echo -e ${GREEN}"[*] Run code-server for start."
+	echo -e ${GREEN}"\n[*] Default Port is: 8091 \n"	
+	echo -e ${GREEN}"\n[*] Default password is: 123qwe \n"	
+	echo -e ${RED}"[*] Run code-server for start. \n"
 }
 
 install_vsc() {
@@ -229,9 +223,9 @@ install_vsc() {
 	install_zsh
 	setup_omz
 	install_vsc_repo
+	setup_net
 	install_adb
 	configure_vsc
-	setup_launcher
 	setup_finaly
 }
 
