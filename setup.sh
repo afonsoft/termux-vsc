@@ -202,9 +202,15 @@ configure_vsc(){
 }
 
 setup_net() {
+	echo -e ${GREEN}"[*] Install Mono and DotNet... \n"
 	{ 
+			pkg install mono -y;
 			wget https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.sh -q;
 			chmod +x dotnet-install.sh;
+			./dotnet-install.sh -c LTS;
+			./dotnet-install.sh -c STS;
+			echo 'export DOTNET_ROOT=$HOME/.dotnet' >> ~/.bashrc
+			echo 'export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools' >> ~/.bashrc
 		}
 	
 
