@@ -136,6 +136,7 @@ setup_omz() {
 
 	# configuring termux
 	echo -e ${CYAN}"\n[*] Configuring Termux..."
+	reset_color
 	if [[ ! -d "$HOME/.termux" ]]; then
 		mkdir $HOME/.termux
 	fi
@@ -174,12 +175,14 @@ setup_omz() {
 install_adb() {
 	echo -e ${GREEN}"\n[*] install ADB file..."
 	echo -e ${CYAN}"\n[*] Download from github... "
+	reset_color
 	{ curl https://github.com/MasterDevX/Termux-ADB/raw/master/InstallTools.sh -o InstallTools.sh; bash InstallTools.sh; rm InstallTools.sh;}
 }
 
 ## Install Visual Code
 install_vsc_repo() {
 	echo -e ${GREEN}"\n[*] install Visual Sutdio Code Source..."
+	reset_color
 	{
 	  wget https://packages.microsoft.com/keys/microsoft.asc -q;
 	  apt-key add microsoft.asc;
@@ -192,9 +195,10 @@ install_vsc_repo() {
 }
 
 configure_vsc(){
-	echo -e ${GREEN}"\n[*] Configure Visual Studio Code..."	
+	echo -e ${GREEN}"\n[*] Configure Visual Studio Code...\n"	
 	{ pkg install code-server; }
-	echo -e ${GREEN}"\n[*] Configure port and password..."	
+	echo -e ${GREEN}"\n[*] Configure port and password...\n"	
+	reset_color
 		{ 
 			wget https://raw.githubusercontent.com/afonsoft/termux-vsc/main/config.yaml -q;
 			cp -rf config.yaml  ~/.config/code-server/config.yaml;
@@ -203,6 +207,7 @@ configure_vsc(){
 
 setup_net() {
 	echo -e ${GREEN}"[*] Install Mono and DotNet... \n"
+	reset_color
 	{ 
 			pkg install mono -y;
 			wget https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.sh -q;
