@@ -190,13 +190,14 @@ install_vsc_repo() {
 	  cp -rf packages.microsoft.gpg $PREFIX/etc/apt/trusted.gpg.d/
 	  rm -rf microsoft.asc;
 	  rm -rf packages.microsoft.gpg;
-	  echo "deb https://packages.microsoft.com/repos/code stable main" > $PREFIX/etc/apt/sources.list.d/vscode.list;
 	}
 	echo -e ${GREEN}"\n[*] install GCC Source..."
 	reset_color
 	{
-	  wget  https://its-pointless.github.io/setup-pointless-repo.sh -o setup-pointless-repo.sh;
-	  bash setup-pointless-repo.sh; rm setup-pointless-repo.sh;
+	  wget https://its-pointless.github.io/setup-pointless-repo.sh -q;
+	  chmod +x setup-pointless-repo.sh; 
+	  bash setup-pointless-repo.sh;
+	  rm setup-pointless-repo.sh;
 	}
 }
 
@@ -216,6 +217,8 @@ setup_net() {
 	echo -e ${GREEN}"[*] Install Mono and DotNet... \n"
 	reset_color
 	{ 
+			pkg update;
+			pkg upgrade -y;
 			pkg install mono -y;
 			wget https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.sh -q;
 			chmod +x dotnet-install.sh;
