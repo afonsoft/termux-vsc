@@ -196,6 +196,7 @@ install_vsc_repo() {
 
 configure_vsc(){
 	echo -e ${GREEN}"\n[*] Configure Visual Studio Code...\n"	
+	reset_color
 	{ pkg install code-server; }
 	echo -e ${GREEN}"\n[*] Configure port and password...\n"	
 	reset_color
