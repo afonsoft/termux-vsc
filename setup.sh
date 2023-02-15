@@ -26,7 +26,7 @@ trap exit_on_signal_SIGINT SIGINT
 trap exit_on_signal_SIGTERM SIGTERM
 
 ## Update, X11-repo, Program Installation
-_pkgs=(curl fsmon git openssl-tool startup-notification termux-api vim make wget zsh librsvg nodejs yarn build-essential bash-completion build-essential binutils pkg-config python nodejs-lts gnupg)
+_pkgs=(curl fsmon git openssl-tool startup-notification termux-api vim make wget zsh librsvg nodejs yarn build-essential bash-completion build-essential binutils pkg-config python nodejs-lts gnupg ndk-sysroot)
 
 setup_base() {
 	echo -e ${RED}"\n[*] Installing Visual Studio Code..."
@@ -192,6 +192,12 @@ install_vsc_repo() {
 	  rm -rf packages.microsoft.gpg;
 	  echo "deb https://packages.microsoft.com/repos/code stable main" > $PREFIX/etc/apt/sources.list.d/vscode.list;
 	}
+	echo -e ${GREEN}"\n[*] install GCC Source..."
+	reset_color
+	{
+	  wget  https://its-pointless.github.io/setup-pointless-repo.sh -o setup-pointless-repo.sh;
+	  bash setup-pointless-repo.sh; rm setup-pointless-repo.sh;
+	}
 }
 
 configure_vsc(){
@@ -223,9 +229,9 @@ setup_net() {
 }
 setup_finaly() {
 	echo -e ${ORANGE}"\n[*] Installation successfully completed....."
-	echo -e ${GREEN}"\n[*] Default Port is: 8091 \n"	
-	echo -e ${GREEN}"\n[*] Default password is: 123qwe \n"	
-	echo -e ${RED}"[*] Run code-server for start. \n"
+	echo -e ${GREEN}"\n[*] Default Port is: $RED 8091 "	
+	echo -e ${GREEN}"\n[*] Default password is: $RED 123qwe "	
+	echo -e ${GREEN}"[*] Run $RED code-server $GREEN for start."
 }
 
 install_vsc() {
